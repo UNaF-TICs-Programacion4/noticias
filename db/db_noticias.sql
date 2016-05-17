@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2016 a las 20:22:05
+-- Tiempo de generación: 17-05-2016 a las 21:36:19
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 5.6.19
 
@@ -44,7 +44,7 @@ CREATE TABLE `noticia` (
   `id` int(11) NOT NULL,
   `rela_idseccion` int(11) NOT NULL,
   `noticia_titulo` varchar(255) NOT NULL,
-  `noticia_fecha_alta` date NOT NULL,
+  `noticia_fecha_alta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `noticia_autor` varchar(255) NOT NULL,
   `noticia_texto` text NOT NULL,
   `noticia_imagen` varchar(255) NOT NULL,

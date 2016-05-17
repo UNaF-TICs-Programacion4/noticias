@@ -79,7 +79,7 @@
         </div>
         <!-- /.row -->
 
-        <!-- Project One -->
+        <!-- Noticia Uno -->
         <div class="row">
             <div class="col-md-7">
                 <a href="#">
@@ -91,14 +91,14 @@
                 <h4>Deportes</h4>
                 <p><i>Lunes, 15 de Mayo de 2016.</i></p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                <a class="btn btn-primary" href="#">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a class="btn btn-primary" href="ver_noticia.php">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
         <!-- /.row -->
 
         <hr>
 
-        <!-- Project Two -->
+        <!-- Noticia Dos -->
         <div class="row">
             <div class="col-md-7">
                 <a href="#">
@@ -110,7 +110,7 @@
                 <h4>Locales</h4>
                 <p><i>Lunes, 15 de Mayo de 2016.</i></p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
-                <a class="btn btn-primary" href="#">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a class="btn btn-primary" href="ver_noticia.php">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
         <!-- /.row -->
