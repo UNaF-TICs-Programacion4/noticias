@@ -62,7 +62,7 @@
         
         <div class="container">
             <div class="row col-md-6">
-                <form method="POST" action="" enctype="multipart/form-data">
+                <form method="POST" action="">
                   <div class="form-group">
                     <label>Sección</label>
                     <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" >
