@@ -122,8 +122,15 @@
                 <td><a href="editar_seccion.php">Deportes</a>
                 </td>
                 <td><a href="eliminar_seccion.php"><span class="glyphicon glyphicon-remove"></span></a>
-                </td>                
-              </tr>              
+                </td>              
+              </tr>    
+              <tr>
+                <td>2</td>
+                <td><a href="editar_seccion.php">Locales</a>
+                </td>
+                <td><a href="eliminar_seccion.php"><span class="glyphicon glyphicon-remove"></span></a>
+                </td>   
+              </tr>          
             </tbody>
           </table>          
         </div>
