@@ -61,6 +61,9 @@
                     <li>
                         <a href="#">Espectáculos</a>
                     </li>
+ 		    <li>
+                        <a href="#">Sociales</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                         <li><a href="./admin/login.php">Administración</a></li>
