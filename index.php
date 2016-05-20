@@ -1,3 +1,8 @@
+﻿<?php
+	include 'conectar.php';
+	$noticia = new Db_Noticia();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
