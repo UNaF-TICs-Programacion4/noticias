@@ -1,3 +1,8 @@
+﻿<?php
+	include 'conectar.php';
+	$noticia = new Db_Noticia();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,12 +17,17 @@
     <title>Home - NoticiasNEA</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/1-col-portfolio.css" rel="stylesheet">
+    <link href="css/1-col-portfolio.css" rel="stylesheet">
 
-    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 
@@ -34,20 +44,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../">NoticiasNEA</a>
+                <a class="navbar-brand" href="#">NoticiasNEA</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="alta_noticia.php">Nueva Noticia</a>
+                        <a href="#">Locales</a>
                     </li>
                     <li>
-                        <a href="alta_seccion.php">Nueva Sección</a>
+                        <a href="#">Internacionales</a>
+                    </li>
+                    <li>
+                        <a href="#">Deportes</a>
+                    </li>
+                    <li>
+                        <a href="#">Espectáculos</a>
+                    </li>
+ 		    <li>
+                        <a href="#">Sociales</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.php">Salir</a></li>
+                        <li><a href="./admin/login.php">Administración</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -61,68 +80,80 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Panel de Administración</h1>
+                <h1 class="page-header">Noticias NEA
+                    <small>Periodismo de Opinión</small>
+                </h1>
             </div>
         </div>
         <!-- /.row -->
 
-        <div class="container-fluid">
+        <!-- Noticia Uno -->
         <div class="row">
-          <h2>Noticias</h2>
-          <p>Listado de Noticias</p>           
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#ID</th>
-                <th>Título</th>
-                <th>Sección</th>
-                <th>F. de Publicación</th>                
-                <th>Autor</th>
-                <th>Contenido</th>
-                <th>Imágen</th>
-                <th>Publicado</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>              
-              <tr>
-                <td>1</td>
-                <td>Noticia 1</td>
-                <td>Deportes</td>
-                <td>15/05/2016 16:55</td>
-                <td>Juan Perez García</td>
-                <td><a href="editar_noticia.php">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</a></td>
-                <td>imagen.jpg</td>
-                <td><input type="checkbox" value="true"></input></td>
-                <td><a href="eliminar_noticia.php"><span class="glyphicon glyphicon-remove"></span></a></td>                        
-            </tbody>
-          </table>          
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>Noticia 1</h3>
+                <h4>Deportes</h4>
+                <p><i>Lunes, 15 de Mayo de 2016.</i></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+                <a class="btn btn-primary" href="ver_noticia.php">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
         </div>
-      </div>
-      <div class="container-fluid">
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Noticia Dos -->
         <div class="row">
-          <h2>Secciones</h2>
-          <p>Listado de Secciones:</p>           
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#ID</th>
-                <th>Descripción</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>              
-              <tr>
-                <td>1</td>
-                <td><a href="editar_seccion.php">Deportes</a>
-                </td>
-                <td><a href="eliminar_seccion.php"><span class="glyphicon glyphicon-remove"></span></a>
-                </td>                
-              </tr>              
-            </tbody>
-          </table>          
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>Noticia 2</h3>
+                <h4>Locales</h4>
+                <p><i>Lunes, 15 de Mayo de 2016.</i></p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
+                <a class="btn btn-primary" href="ver_noticia.php">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
         </div>
-      </div>    
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                    <li>
+                        <a href="#">&laquo;</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li>
+                        <a href="#">4</a>
+                    </li>
+                    <li>
+                        <a href="#">5</a>
+                    </li>
+                    <li>
+                        <a href="#">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
 
         <hr>
 
@@ -140,10 +171,10 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+    <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 
