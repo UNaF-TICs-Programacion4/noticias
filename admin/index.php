@@ -1,3 +1,11 @@
+<?php
+    include_once "../autoloader.php";
+    $noticia = new Noticia();
+    $seccion = new Seccion();
+    $noticias = $noticia->seleccionarFiltro()->fetchAll();
+    $secciones = $seccion->seleccionarFiltro()->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -52,7 +60,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.php">Salir</a></li>
+                    <li><a href="../">Salir</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -89,17 +97,19 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody>              
+            <tbody>   
+            <?php foreach ($noticias as $noticia) : ?>        
               <tr>
-                <td>1</td>
-                <td>Noticia 1</td>
-                <td>Deportes</td>
-                <td>15/05/2016 16:55</td>
-                <td>Juan Perez García</td>
-                <td><a href="editar_noticia.php">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</a></td>
-                <td>imagen.jpg</td>
-                <td><input type="checkbox" value="true"></input></td>
-                <td><a href="eliminar_noticia.php"><span class="glyphicon glyphicon-remove"></span></a></td>                        
+                <td><?php echo $noticia['id']; ?></td>
+                <td><a href="editar_noticia.php?id=<?php echo $noticia['id']; ?>"><?php echo utf8_encode($noticia['noticia_titulo']); ?></a></td>
+                <td><?php echo $noticia['seccion_descri']; ?></td>
+                <td><?php echo $noticia['noticia_fecha_alta']; ?></td>
+                <td><?php echo $noticia['noticia_autor']; ?></td>
+                <td><?php echo utf8_encode(substr($noticia['noticia_texto'],0,150))."..."; ?></a></td>
+                <td><?php echo $noticia['noticia_imagen']; ?></td>
+                <td><input type="checkbox" <?php echo ($noticia['noticia_publicado']!=0)?'checked':''; ?> disabled></input></td>
+                <td><a href="eliminar_noticia.php?id=<?php echo $noticia['id']; ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <?php endforeach; ?>                            
             </tbody>
           </table>          
         </div>
@@ -117,20 +127,15 @@
               </tr>
             </thead>
             <tbody>              
-              <tr>
-                <td>1</td>
-                <td><a href="editar_seccion.php">Deportes</a>
-                </td>
-                <td><a href="eliminar_seccion.php"><span class="glyphicon glyphicon-remove"></span></a>
-                </td>              
-              </tr>    
-              <tr>
-                <td>2</td>
-                <td><a href="editar_seccion.php">Locales</a>
-                </td>
-                <td><a href="eliminar_seccion.php"><span class="glyphicon glyphicon-remove"></span></a>
-                </td>   
-              </tr>          
+              <?php foreach($secciones as $seccion) : ?>
+                  <tr>
+                    <td><?php echo $seccion['id'] ?></td>
+                    <td><a href="editar_seccion.php?id=<?php echo $seccion['id'] ?>"><?php echo $seccion['seccion_descri'] ?></a>
+                    </td>
+                    <td><a href="eliminar_seccion.php?id=<?php echo $seccion['id'] ?>"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>              
+                  </tr>    
+              <?php endforeach; ?>
             </tbody>
           </table>          
         </div>

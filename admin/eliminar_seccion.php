@@ -1,3 +1,18 @@
+<?php
+    include_once "../autoloader.php";
+    if ($_POST){
+        $id=$_POST['id'];
+        $seccion = new Seccion($id);
+        $resultado = $seccion->eliminar();
+    } elseif ($_GET){
+        //Visualizo el registro a eliminar.
+        $id=$_GET['id'];
+        $seccion = new Seccion($id);
+    } else {
+        die("Error");
+    }
+    
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -62,16 +77,33 @@
         
         <div class="container">
             <div class="row col-md-6">
-                <form method="POST" action="">
+            <?php if(!isset($resultado)) { ?>
+                <form method="POST" action="elimiar_seccion.php">
                   <div class="form-group">
+                    <input type="text" value="<?php echo $id; ?>" hidden="true"></input>
                     <label>Sección</label>
-                    <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" >
+                    <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" value="<?php echo $seccion->Seccion_Descri; ?>" disabled>
                   </div>  
 
                   </br>  
                   <button type="submit" name ="btnGuardar" class="btn btn-danger">Eliminar</button>
-                  <a href="./" class = "btn btn-default">Cancelar</a>
+                  <a href="./" class = "btn btn-default">Volver</a>
                 </form>
+            <?php } elseif (!$resultado) { ?>
+                <div class="alert alert-danger" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span> No se pudo eliminar la Sección <?php echo $seccion->seccion_descri; ?>
+                </div>
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>
+            <?php } else { ?>
+                <div class="alert alert-success" role="alert">
+                  <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
+                  <span class="sr-only">Confirmación:</span> La Sección <?php echo $seccion->Seccion_Descri; ?> se Eliminó correctamente.
+                </div>     
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>           
+            <?php } ?>
             </div>
         </div>         
 

@@ -1,3 +1,24 @@
+<?php
+    include_once "../autoloader.php";
+    if ($_POST){        
+        $noticia = new Noticia();  
+        $img = $_FILES['imagen']['name'];
+        $img_temp = $_FILES['imagen']['tmp_name'];
+
+        $noticia->Noticia_Titulo = $_POST['titulo'];
+        $noticia->Rela_IdSeccion = $noticia['seccion'];        
+        $noticia->Noticia_Autor = $noticia['autor'];
+        $noticia->Noticia_Texto = $noticia['texto'];
+        $noticia->Noticia_Imagen = $img;
+        $noticia->Noticia_Publicado = $noticia['publicado'];
+        $resultado = $noticia->insertar();
+
+        if ($resultado){
+            move_uploaded_file($img_temp, "../img/$img_temp");
+        }
+    }
+    
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -10,7 +31,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home - NoticiasNEA</title>
+    <title>Alta Nueva Noticia</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -62,19 +83,19 @@
         
         <div class="container">
             <div class="row col-md-6">
-                <form method="POST" action="" enctype="multipart/form-data">
+            <?php if(!isset($resultado)) { ?>
+                <form method="POST" action="alta_noticia.php" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Título</label>
-                    <input type="text" class="form-control" name="descri" placeholder="Titulo de la Noticia" >
+                    <input type="text" class="form-control" name="titulo" placeholder="Titulo de la Noticia" >
                   </div>  
                   <div class="form-group">
                     <label>Sección</label>
                     <select name="seccion" class="form-control">
                         <option value="" selected="false" disabled="true">-- Seleccione la Sección -- </option>
-                            <option value="">Deportes</option>
-                            <option value="">Locales</option>
-                            <option value="">Internacionales</option>
-                            <option value="">Espectáculos</option>
+                    <?php foreach ($secciones as $seccion) : ?>
+                        <option value="<?php echo $seccion->id(); ?>"><?php echo $seccion->Seccion_Descri; ?></option>
+                    <?php endforeach; ?>
                     </select> 
                   </div>  
                   <div class="form-group">
@@ -92,13 +113,28 @@
                   </div>  
                    <div class="checkbox">
                         <label>
-                          <input type="checkbox">Publicar
+                          <input type="checkbox" name="publicado">Publicar
                         </label>
                    </div>      
                   </br>  
                   <button type="submit" name ="btnGuardar" class="btn btn-primary">Guardar</button>
                   <a href="./" class = "btn btn-default">Cancelar</a>
-                </form>
+                        </form>
+            <?php } elseif (!$resultado) { ?>
+                <div class="alert alert-danger" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span> No se pudo dar de Alta a la Noticia <?php echo $noticia->Noticia_Titulo; ?>
+                </div>
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>
+            <?php } else { ?>
+                <div class="alert alert-success" role="alert">
+                  <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
+                  <span class="sr-only">Confirmación:</span> La Noticia <?php echo $noticia->Noticia_Titulo; ?> se dió de Alta correctamente.
+                </div>     
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>           
+            <?php } ?>
             </div>
         </div>         
 

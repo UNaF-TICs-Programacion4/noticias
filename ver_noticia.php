@@ -1,4 +1,20 @@
-﻿<!DOCTYPE html>
+﻿<?php
+    include_once "autoloader.php";    
+
+    if (empty($_GET['id'])){
+        /*
+        * Si no estoy filtrando la Noticia, vuelvo al inicio
+        */
+       header("Location: ./");
+    } else {
+        $id = $_GET['id'];
+        $noticia = new Noticia($id);
+    }
+
+?>
+
+
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -9,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="Pagina Principal">
 
-    <title>Noticia 1</title>
+    <title><?php echo utf8_encode($noticia->Noticia_Titulo); ?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,22 +58,6 @@
                 <a class="navbar-brand" href="./">NoticiasNEA</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Locales</a>
-                    </li>
-                    <li>
-                        <a href="#">Internacionales</a>
-                    </li>
-                    <li>
-                        <a href="#">Deportes</a>
-                    </li>
-                    <li>
-                        <a href="#">Espectáculos</a>
-                    </li>
-                </ul>
-            </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
@@ -74,31 +74,27 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-                <h1>Noticia 1</h1>
+                <h1><?php echo utf8_encode($noticia->Noticia_Titulo); ?></h1>
 
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="#">Jose Perez García</a>
+                    Por <a href="#"><?php echo utf8_encode($noticia->Noticia_Autor); ?></a>
                 </p>
 
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Publicado el 15 de Mayo de 2016 a las 16:55</p>
+                <p><span class="glyphicon glyphicon-time"></span> <?php echo $noticia->noticia_fecha_alta(); ?> </p>
 
                 <hr>
 
                 <!-- Preview Image -->
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                <img class="img-responsive" src="img/<?php echo $noticia->Noticia_Imagen; ?>" alt="" width="900" height="300">
 
                 <hr>
 
                 <!-- Post Content -->
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
+                <p><?php echo nl2br(utf8_encode($noticia->Noticia_Texto)); ?></p>
 
                 <hr>
             </div>

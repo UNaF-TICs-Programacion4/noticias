@@ -1,3 +1,19 @@
+<?php
+    include_once "../autoloader.php";
+    if ($_POST){
+        $id=$_POST['id'];
+        $seccion = new Seccion($id);
+        $seccion->Seccion_Descri = $_POST['descri'];
+        $resultado = $seccion->actualizar();
+    } elseif ($_GET){
+        //Visualizo el registro a actualizar.
+        $id=$_GET['id'];
+        $seccion = new Seccion($id);
+    } else {
+        die("Error");
+    }
+    
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -10,7 +26,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home - NoticiasNEA</title>
+    <title><?php echo $seccion->seccion_descri; ?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +70,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Editar Sección</h1>
+                <h1 class="page-header">Modificar Sección</h1>
             </div>
         </div>
         <!-- /.row -->
@@ -62,15 +78,33 @@
         
         <div class="container">
             <div class="row col-md-6">
-                <form method="POST" action="" >
+            <?php if(!isset($resultado)) { ?>
+                <form method="POST" action="editar_seccion.php">
                   <div class="form-group">
-                    <label>Título</label>
-                    <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" >
-                  </div>                         
+                    <input type="text" value="<?php echo $id; ?>" hidden="true" name="id"></input>
+                    <label>Sección</label>
+                    <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" value="<?php echo $seccion->Seccion_Descri; ?>">
+                  </div>  
+
                   </br>  
                   <button type="submit" name ="btnGuardar" class="btn btn-primary">Modificar</button>
-                  <a href="./" class = "btn btn-default">Cancelar</a>
+                  <a href="./" class = "btn btn-default">Volver</a>
                 </form>
+            <?php } elseif (!$resultado) { ?>
+                <div class="alert alert-danger" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span> No se pudo Modificar la Sección <?php echo $seccion->Seccion_Descri; ?>
+                </div>
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>
+            <?php } else { ?>
+                <div class="alert alert-success" role="alert">
+                  <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
+                  <span class="sr-only">Confirmación:</span> La Sección se Modificó correctamente a <?php echo $seccion->Seccion_Descri; ?>
+                </div>     
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>           
+            <?php } ?>
             </div>
         </div>         
 

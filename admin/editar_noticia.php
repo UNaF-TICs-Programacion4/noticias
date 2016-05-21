@@ -1,4 +1,24 @@
+<?php
+    include_once "../autoloader.php";
+    if ($_POST){        
+        $noticia = new Noticia();  
+        $img = $_FILES['imagen']['name'];
+        $img_temp = $_FILES['imagen']['tmp_name'];
 
+        $noticia->Noticia_Titulo = $_POST['titulo'];
+        $noticia->Rela_IdSeccion = $noticia['seccion'];        
+        $noticia->Noticia_Autor = $noticia['autor'];
+        $noticia->Noticia_Texto = $noticia['texto'];
+        $noticia->Noticia_Imagen = $img;
+        $noticia->Noticia_Publicado = $noticia['publicado'];
+        $resultado = $noticia->insertar();
+
+        if ($resultado){
+            move_uploaded_file($img_temp, "../img/$img_temp");
+        }
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="es">
 

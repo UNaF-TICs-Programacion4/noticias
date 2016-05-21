@@ -1,4 +1,12 @@
-
+<?php
+    include_once "../autoloader.php";
+    if ($_POST){        
+        $seccion = new Seccion();
+        $seccion->Seccion_Descri = $_POST['descri'];
+        $resultado = $seccion->insertar();
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -10,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home - NoticiasNEA</title>
+    <title>Alta Nueva Sección</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -62,15 +70,31 @@
         
         <div class="container">
             <div class="row col-md-6">
-                <form method="POST" action="">
+            <?php if(!isset($resultado)) { ?>
+                <form method="POST" action="alta_seccion.php">
                   <div class="form-group">
                     <label>Sección</label>
                     <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" >
                   </div>     
                   </br>  
-                  <button type="submit" name ="btnGuardar" class="btn btn-primary">Guardar</button>
+                  <button type="submit" name ="btnGuardar" class="btn btn-success">Guardar</button>
                   <a href="./" class = "btn btn-default">Cancelar</a>
                 </form>
+            <?php } elseif (!$resultado) { ?>
+                <div class="alert alert-danger" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  <span class="sr-only">Error:</span> No se pudo dar de Alta a la Sección <?php echo $seccion->seccion_descri; ?>
+                </div>
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>
+            <?php } else { ?>
+                <div class="alert alert-success" role="alert">
+                  <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
+                  <span class="sr-only">Confirmación:</span> La Sección <?php echo $seccion->Seccion_Descri; ?> se dió de Alta correctamente.
+                </div>     
+                </br>
+                <a href="./" class = "btn btn-default">Volver</a>           
+            <?php } ?>
             </div>
         </div>         
 

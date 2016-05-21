@@ -1,6 +1,19 @@
-﻿<?php
-	include 'conectar.php';
-	$noticia = new Db_Noticia();
+<?php
+	include_once "autoloader.php";
+    $noticia = new Noticia();
+    $seccion = new Seccion();
+    if (empty($_GET['idsec'])){
+        /*
+        * Si no estoy filtrando la Seccion, entonces traigo todo.
+        */
+	   $noticias = $noticia->seleccionarFiltro()->fetchAll();
+    } else {
+        $rela_idseccion = $_GET['idsec'];
+        $noticias = $noticia->seleccionarFiltro("rela_idseccion = $rela_idseccion")->fetchAll();
+    }
+
+    $secciones = $seccion->seleccionarFiltro()->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -44,29 +57,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">NoticiasNEA</a>
+                <a class="navbar-brand" href="./">NoticiasNEA</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- Un link para cada Seccion -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Locales</a>
-                    </li>
-                    <li>
-                        <a href="#">Internacionales</a>
-                    </li>
-                    <li>
-                        <a href="#">Deportes</a>
-                    </li>
-                    <li>
-                        <a href="#">Espectáculos</a>
-                    </li>
- 		    <li>
-                        <a href="#">Sociales</a>
-                    </li>
+                    <?php foreach ($secciones as $seccion) : ?>
+                        
+                        <li>
+                            <a href="<?php echo "index.php?idsec={$seccion['id']}"; ?>"><?php echo $seccion['seccion_descri']; ?></a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                        <li><a href="./admin/login.php">Administración</a></li>
+                    <li><a href="./admin/index.php">Administración</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -88,44 +92,28 @@
         <!-- /.row -->
 
         <!-- Noticia Uno -->
+        <?php foreach ($noticias as $noticia) : ?>
         <div class="row">
             <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+                <a href="ver_noticia.php?id=<?php echo $noticia['id']; ?>">
+                    <img class="img-responsive" src="img/<?php echo $noticia['noticia_imagen']; ?>" alt="" width="700" heigth="300">
                 </a>
             </div>
             <div class="col-md-5">
-                <h3>Noticia 1</h3>
-                <h4>Deportes</h4>
-                <p><i>Lunes, 15 de Mayo de 2016.</i></p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                <a class="btn btn-primary" href="ver_noticia.php">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
+                <h3><?php echo utf8_encode($noticia['noticia_titulo']); ?></h3>
+                <h4><?php echo utf8_encode($noticia['seccion_descri']); ?></h4>
+                <p><i><?php echo date('D, d M Y H:i:s',$noticia['noticia_fecha_alta']); ?></i></p>
+                <p><?php echo utf8_encode(substr($noticia['noticia_texto'],0,150))."..."; ?></p>
+                <a class="btn btn-primary" href="ver_noticia.php?id=<?php echo $noticia['id']; ?>">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
+        <hr>
+        <?php endforeach; ?>
         <!-- /.row -->
 
-        <hr>
-
-        <!-- Noticia Dos -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Noticia 2</h3>
-                <h4>Locales</h4>
-                <p><i>Lunes, 15 de Mayo de 2016.</i></p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
-                <a class="btn btn-primary" href="ver_noticia.php">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Pagination -->
+        
+        <!--
+        Comentamos por ahora la paginación
         <div class="row text-center">
             <div class="col-lg-12">
                 <ul class="pagination">
@@ -153,10 +141,7 @@
                 </ul>
             </div>
         </div>
-        <!-- /.row -->
-
-        <hr>
-
+        -->
         <!-- Footer -->
         <footer>
             <div class="row">
