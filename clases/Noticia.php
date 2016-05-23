@@ -37,12 +37,26 @@ class Noticia extends Conexion
 		return $this->Noticia_Fecha_Alta;
 	}
 
-
-	public function seleccionarFiltro($filtro=""){
-		$query = "SELECT * FROM ". self::TABLA .",seccion WHERE rela_idseccion = seccion.id";
+	public function id(){
+		return $this->Id;
+	}
+	
+	public function seleccionarFiltro($filtro="",$orden=""){
+		$query = "SELECT noticia.id
+					,rela_idseccion
+					,noticia_fecha_alta
+					,noticia_titulo
+					,noticia_autor
+					,noticia_texto
+					,noticia_imagen
+					,noticia_publicado
+					,seccion_descri FROM ". self::TABLA .",seccion WHERE rela_idseccion = seccion.id";
 		if (!empty($filtro)){
 			 $query .= " And $filtro";			
 		}	
+		if (!empty($orden)){
+			$query .= " Order By $orden";
+		}
 		$resultado = $this->link->query($query);
 		return $resultado;
 
@@ -50,25 +64,33 @@ class Noticia extends Conexion
 
 	public  function seleccionarId($id=0){
 		if ($id != 0){
-			$query = "SELECT * FROM ". self::TABLA .",seccion WHERE rela_idseccion = seccion.id And ". self::TABLA.".id=$id";
-		}		
+			$query = "SELECT noticia.id
+					,rela_idseccion
+					,noticia_fecha_alta
+					,noticia_titulo
+					,noticia_autor
+					,noticia_texto
+					,noticia_imagen
+					,noticia_publicado
+					,seccion_descri FROM ". self::TABLA .",seccion WHERE rela_idseccion = seccion.id And ". self::TABLA.".id=$id";
+		}	
 		$resultado = $this->link->query($query);
 		return $resultado;
 	}
 
 	public function insertar(){	
-		$query = "INSERT INTO ". self::TABLA ." (rela_idseccion, noticia_titulo, noticia_autor, noticia_texto, noticia_imagen, noticia_publicado) VALUES ($this->Rela_IdSeccion, $this->Noticia_Titulo, $this->Noticia_Autor, $this->Noticia_Texto, $this->Noticia_Imagen, $this->Noticia_Publicado)";		
+		$query = "INSERT INTO ". self::TABLA ." (rela_idseccion, noticia_titulo, noticia_autor, noticia_texto, noticia_imagen, noticia_publicado) VALUES ($this->Rela_IdSeccion, '$this->Noticia_Titulo', '$this->Noticia_Autor', '$this->Noticia_Texto', '$this->Noticia_Imagen', $this->Noticia_Publicado)";		
 		$resultado = $this->link->query($query);
 		return $resultado;
 	}
 
 	public function actualizar(){
 		$query = "UPDATE ". self::TABLA ." SET rela_idseccion = $this->Rela_IdSeccion
-					, noticia_titulo = $this->Noticia_Titulo
-					, noticia_texto = $this->Noticia_Texto
-					, noticia_imagen = $this->Noticia_Imagen
+					, noticia_titulo = '$this->Noticia_Titulo'
+					, noticia_texto = '$this->Noticia_Texto'
+					, noticia_imagen = '$this->Noticia_Imagen'
 					, noticia_publicado = $this->Noticia_Publicado
-					WHERE id = $this->Id";		
+					WHERE id = $this->Id";				
 		$resultado = $this->link->query($query);
 		return $resultado;
 	}

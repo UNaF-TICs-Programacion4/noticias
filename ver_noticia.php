@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="Pagina Principal">
 
-    <title><?php echo utf8_encode($noticia->Noticia_Titulo); ?></title>
+    <title><?php echo $noticia->Noticia_Titulo; ?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -74,11 +74,11 @@
                 <!-- Blog Post -->
 
                 <!-- Title -->
-                <h1><?php echo utf8_encode($noticia->Noticia_Titulo); ?></h1>
+                <h1><?php echo $noticia->Noticia_Titulo; ?></h1>
 
                 <!-- Author -->
                 <p class="lead">
-                    Por <a href="#"><?php echo utf8_encode($noticia->Noticia_Autor); ?></a>
+                    Por <a href="#"><?php echo $noticia->Noticia_Autor; ?></a>
                 </p>
 
                 <hr>
@@ -94,7 +94,7 @@
                 <hr>
 
                 <!-- Post Content -->
-                <p><?php echo nl2br(utf8_encode($noticia->Noticia_Texto)); ?></p>
+                <p><?php echo nl2br($noticia->Noticia_Texto); ?></p>
 
                 <hr>
             </div>

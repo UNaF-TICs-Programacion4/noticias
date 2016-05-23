@@ -1,23 +1,30 @@
 <?php
     include_once "../autoloader.php";
+
     if ($_POST){        
         $noticia = new Noticia();  
         $img = $_FILES['imagen']['name'];
         $img_temp = $_FILES['imagen']['tmp_name'];
 
         $noticia->Noticia_Titulo = $_POST['titulo'];
-        $noticia->Rela_IdSeccion = $noticia['seccion'];        
-        $noticia->Noticia_Autor = $noticia['autor'];
-        $noticia->Noticia_Texto = $noticia['texto'];
-        $noticia->Noticia_Imagen = $img;
-        $noticia->Noticia_Publicado = $noticia['publicado'];
-        $resultado = $noticia->insertar();
-
-        if ($resultado){
-            move_uploaded_file($img_temp, "../img/$img_temp");
+        $noticia->Rela_IdSeccion = $_POST['seccion'];        
+        $noticia->Noticia_Autor = $_POST['autor'];
+        $noticia->Noticia_Texto = $_POST['texto'];
+        if (!empty($img)){
+            $noticia->Noticia_Imagen = $img;
+        }
+        $noticia->Noticia_Publicado = (isset($_POST['publicado']) && $_POST['publicado'] == "1")?"1":"0";
+        try {
+            $resultado = $noticia->insertar();  
+        } catch (Exception $e) {
+            $resultado = false;
+        }
+        if ($resultado && !empty($img)){
+            move_uploaded_file($img_temp, "../img/$img");
         }
     }
-    
+    $seccion = new Seccion();
+    $secciones = $seccion->seleccionarFiltro()->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +101,7 @@
                     <select name="seccion" class="form-control">
                         <option value="" selected="false" disabled="true">-- Seleccione la Sección -- </option>
                     <?php foreach ($secciones as $seccion) : ?>
-                        <option value="<?php echo $seccion->id(); ?>"><?php echo $seccion->Seccion_Descri; ?></option>
+                        <option value="<?php echo $seccion['id']; ?>"><?php echo $seccion['seccion_descri']; ?></option>
                     <?php endforeach; ?>
                     </select> 
                   </div>  
@@ -104,7 +111,7 @@
                   </div>  
                   <div class="form-group">
                     <label>Texto</label>
-                    <textarea type="text" class="form-control" name="texto" placeholder="Contenido de la Noticia"></textarea>
+                    <textarea type="text" class="form-control" name="texto" placeholder="Contenido de la Noticia" rows="10"></textarea>
                   </div>  
                   <div class="form-group">
                     <label>Imágen para Mostrar</label>
@@ -113,24 +120,24 @@
                   </div>  
                    <div class="checkbox">
                         <label>
-                          <input type="checkbox" name="publicado">Publicar
+                          <input type="checkbox" name="publicado" value="1">Publicado
                         </label>
                    </div>      
                   </br>  
-                  <button type="submit" name ="btnGuardar" class="btn btn-primary">Guardar</button>
+                  <button type="submit" name ="btnGuardar" class="btn btn-success">Guardar</button>
                   <a href="./" class = "btn btn-default">Cancelar</a>
                         </form>
             <?php } elseif (!$resultado) { ?>
                 <div class="alert alert-danger" role="alert">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span> No se pudo dar de Alta a la Noticia <?php echo $noticia->Noticia_Titulo; ?>
+                  <span class="sr-only">Error:</span> No se pudo dar de Alta a la Noticia <em><?php echo $noticia->Noticia_Titulo; ?></em>
                 </div>
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>
             <?php } else { ?>
                 <div class="alert alert-success" role="alert">
                   <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
-                  <span class="sr-only">Confirmación:</span> La Noticia <?php echo $noticia->Noticia_Titulo; ?> se dió de Alta correctamente.
+                  <span class="sr-only">Confirmación:</span> La Noticia <em><?php echo $noticia->Noticia_Titulo; ?></em> se dió de Alta correctamente.
                 </div>     
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>           

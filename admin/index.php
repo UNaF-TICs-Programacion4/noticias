@@ -11,27 +11,26 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>Home - NoticiasNEA</title>
+	<title>Home - NoticiasNEA</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="../css/1-col-portfolio.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="../css/1-col-portfolio.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
 
 <body>
@@ -98,14 +97,14 @@
               </tr>
             </thead>
             <tbody>   
-            <?php foreach ($noticias as $noticia) : ?>        
+            <?php foreach ($noticias as $noticia) : ?>     
               <tr>
                 <td><?php echo $noticia['id']; ?></td>
-                <td><a href="editar_noticia.php?id=<?php echo $noticia['id']; ?>"><?php echo utf8_encode($noticia['noticia_titulo']); ?></a></td>
+                <td><a href="editar_noticia.php?id=<?php echo $noticia['id']; ?>"><?php echo $noticia['noticia_titulo']; ?></a></td>
                 <td><?php echo $noticia['seccion_descri']; ?></td>
                 <td><?php echo $noticia['noticia_fecha_alta']; ?></td>
                 <td><?php echo $noticia['noticia_autor']; ?></td>
-                <td><?php echo utf8_encode(substr($noticia['noticia_texto'],0,150))."..."; ?></a></td>
+                <td><?php echo substr($noticia['noticia_texto'],0,150)."..."; ?></a></td>
                 <td><?php echo $noticia['noticia_imagen']; ?></td>
                 <td><input type="checkbox" <?php echo ($noticia['noticia_publicado']!=0)?'checked':''; ?> disabled></input></td>
                 <td><a href="eliminar_noticia.php?id=<?php echo $noticia['id']; ?>"><span class="glyphicon glyphicon-remove"></span></a></td>

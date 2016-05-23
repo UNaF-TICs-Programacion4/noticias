@@ -3,7 +3,12 @@
     if ($_POST){
         $id=$_POST['id'];
         $seccion = new Seccion($id);
-        $resultado = $seccion->eliminar();
+        try {
+            $resultado = $seccion->eliminar();    
+        } catch (Exception $e) {
+            $resultado = false;
+        }
+        
     } elseif ($_GET){
         //Visualizo el registro a eliminar.
         $id=$_GET['id'];
@@ -19,26 +24,26 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>Home - NoticiasNEA</title>
+	<title>Home - NoticiasNEA</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Core CSS -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="../css/1-col-portfolio.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="../css/1-col-portfolio.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
 
 </head>
 
@@ -78,9 +83,9 @@
         <div class="container">
             <div class="row col-md-6">
             <?php if(!isset($resultado)) { ?>
-                <form method="POST" action="elimiar_seccion.php">
+                <form method="POST" action="eliminar_seccion.php">
                   <div class="form-group">
-                    <input type="text" value="<?php echo $id; ?>" hidden="true"></input>
+                    <input type="text" name="id" hidden="true" value="<?php echo $id; ?>" />
                     <label>Sección</label>
                     <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" value="<?php echo $seccion->Seccion_Descri; ?>" disabled>
                   </div>  
@@ -92,7 +97,13 @@
             <?php } elseif (!$resultado) { ?>
                 <div class="alert alert-danger" role="alert">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span> No se pudo eliminar la Sección <?php echo $seccion->seccion_descri; ?>
+                  <span class="sr-only">Error:</span> No se pudo eliminar la Sección 
+                    <?php 
+                        echo $seccion->Seccion_Descri; 
+                        /*if (isset($e)){
+                            echo "<br>".$e->getMessage();
+                        }*/
+                    ?> 
                 </div>
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>
@@ -127,6 +138,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
+
 
 </body>
 
