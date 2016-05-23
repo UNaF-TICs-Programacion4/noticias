@@ -98,14 +98,14 @@
             <?php } elseif (!$resultado) { ?>
                 <div class="alert alert-danger" role="alert">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span> No se pudo Modificar la Sección <?php echo $seccion->Seccion_Descri; ?>
+                  <span class="sr-only">Error:</span> No se pudo Modificar la Sección <strong><?php echo $seccion->Seccion_Descri; ?></strong>
                 </div>
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>
             <?php } else { ?>
                 <div class="alert alert-success" role="alert">
                   <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
-                  <span class="sr-only">Confirmación:</span> La Sección se Modificó correctamente a <?php echo $seccion->Seccion_Descri; ?>
+                  <span class="sr-only">Confirmación:</span> La Sección se Modificó correctamente a <stong><?php echo $seccion->Seccion_Descri; ?></stong>
                 </div>     
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>           
