@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2016 a las 21:36:19
+-- Tiempo de generación: 23-05-2016 a las 14:48:22
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 5.6.19
 
@@ -43,13 +43,20 @@ CREATE TABLE `admin` (
 CREATE TABLE `noticia` (
   `id` int(11) NOT NULL,
   `rela_idseccion` int(11) NOT NULL,
-  `noticia_titulo` varchar(255) NOT NULL,
+  `noticia_titulo` varchar(255) CHARACTER SET latin1 NOT NULL,
   `noticia_fecha_alta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `noticia_autor` varchar(255) NOT NULL,
-  `noticia_texto` text NOT NULL,
-  `noticia_imagen` varchar(255) NOT NULL,
+  `noticia_autor` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `noticia_texto` text CHARACTER SET latin1 NOT NULL,
+  `noticia_imagen` varchar(255) CHARACTER SET latin1 NOT NULL,
   `noticia_publicado` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `noticia`
+--
+
+INSERT INTO `noticia` (`id`, `rela_idseccion`, `noticia_titulo`, `noticia_fecha_alta`, `noticia_autor`, `noticia_texto`, `noticia_imagen`, `noticia_publicado`) VALUES(1, 1, 'Están los 23: Tevez lo verá por televisión y la gran sorpresa es Víctor Cuesta, del Rojo', '2016-05-22 02:01:10', 'Hugo Moyano', 'Llegó el 20 de mayo, la fecha límite para entregar la lista de citados para la Copa América Centenario, una versión especial que se celebrará en Estados Unidos con la presencia de los combinados de la Concacaf para celebrar los 100 años del primer torneo de esta competencia. Mientras varias Selecciones ya dieron a conocer los 23 apellidos que llevarán, Gerardo Martino apeló al misterio y aguardó hasta último minuto para entregarla.\r\n\r\nLa gran incógnita estuvo centrada en la presencia de Carlos Tevez, quien finalmente se perderá por primera vez en su carrera una Copa América. El delantero de Boca peleó el puesto con Gonzalo Higuaín y Sergio Agüero, y hasta tuvo chances de colarse en el lugar de Víctor Cuesta, quien fue habilitado a última hora (no estaba en la primera nómina de 40 nombres) y es la gran sorpresa del equipo.\r\n\r\nRespecto a la zona defensiva, hay que recordar las lesiones que marginaron a Pablo Zabaleta, Javier Pinola y Leonel Vangioni de un posible llamado (el Piri, recién recuperado, también quedó afuera). El buen rendimiento del defensor de Independiente lo llevó a transformarse en la revelación. Además, la mirada estuvo enfocada en Javier Mascherano, que si bien no tendrá problemas en jugar, terminó la temporada con una molestia que es para seguir de cerca. Kranevitter será su reemplazo natural.\r\n\r\nCabe destacar que la Selección chocará con Chile el 6 de junio en la apertura del Grupo D (en San Francisco). Cuatro días después irá ante Panamá (en Chicago) y cerrará el 14 contra Bolivia (en Seattle). Hace 23 años que Argentina no consigue levantar este trofeo, teniendo en cuenta que fue subcampeón tres veces en las últimas ocho ediciones.\r\n\r\nLA LISTA DE MARTINO\r\n\r\nArqueros: Sergio Romero (Manchester United), Nahuel Guzmán (Tigres) y Mariano Andújar (Estudiantes)\r\n\r\nDefensores: Facundo Roncaglia (Fiorentina), Marcos Rojo (Manchester United), Nicolás Otamendi (Manchester City), Ramiro Funes Mori (Everton), Gabriel Mercado (River), Jonatan Maidana (River).\r\n\r\nMediocampistas: Javier Mascherano (Barcelona), Augusto Fernández (Atlético Madrid), Matías Kranevitter (Atlético Madrid), Éver Banega (Sevilla), Lucas Biglia (Lazio), Erik Lamela (Tottenham), Javier Pastore (Paris Saint Germain).\r\n\r\nDelanteros: Lionel Messi (barcelona), Gonzalo Higuaín (Napoli), Sergio Agüero (Manchester City), Ángel Di María (Paris Saint Germain), Nicolás Gaitán (Benfica), Ezequiel Lavezzi (Hebei Fortune).', 'copaamerica.jpg', 1);
+INSERT INTO `noticia` (`id`, `rela_idseccion`, `noticia_titulo`, `noticia_fecha_alta`, `noticia_autor`, `noticia_texto`, `noticia_imagen`, `noticia_publicado`) VALUES(3, 4, 'Macri defiende su veto', '2016-05-23 03:58:40', 'Heber Caballero', 'El presidente Mauricio Macri defendió el veto a la ley antidespidos aprobada por el Congreso de la Nación y cuestionó a "quienes creen que el Estado debe someter a la gente y que hay que promulgar leyes que más que crear empleo lo congela".\r\n\r\nEn las ya habituales columnas de opinión que el presidente escribe los domingos para diarios de las provincias, esta vez publicada en el diario La Capital de Rosario, Macri apuntó a la oposición por la aprobación de la ley que dicta la emergencia ocupacional al afirmar que "hay quienes creen que el Estado debe someter a la gente y que hay que promulgar leyes que más que crear empleo lo congela, deteniendo todo impulso a aumentarlo" y los acusó de buscar "aferrarse al pasado y a los cepos que no nos permiten despegar".\r\n\r\n"La ley que aprobaron, que algunos llaman anti-despidos y yo llamo anti-empleo, va en contra de este progreso. Es una ley que no ayuda a nadie, ni a los trabajadores ni a quienes están desempleados, porque espanta la posibilidad de crear trabajo", fustigó el mandatario, que además recordó que "los mismos que hoy la aprueban dijeron que era mala, porque sabían que hacía daño a los trabajadores".\r\n\r\n"Muchos de los que hoy la impulsan lo hacen movidos por intereses políticos, porque quieren que el gobierno fracase para volver y continuar con lo que hicieron hasta diciembre", añadió.', 'macriveto.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -59,8 +66,16 @@ CREATE TABLE `noticia` (
 
 CREATE TABLE `seccion` (
   `id` int(11) NOT NULL,
-  `seccion_descri` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `seccion_descri` varchar(255) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `seccion`
+--
+
+INSERT INTO `seccion` (`id`, `seccion_descri`) VALUES(1, 'Deportes');
+INSERT INTO `seccion` (`id`, `seccion_descri`) VALUES(3, 'Espectáculos');
+INSERT INTO `seccion` (`id`, `seccion_descri`) VALUES(4, 'Nacionales');
 
 --
 -- Índices para tablas volcadas
@@ -87,12 +102,12 @@ ALTER TABLE `seccion`
 -- AUTO_INCREMENT de la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `seccion`
 --
 ALTER TABLE `seccion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Restricciones para tablas volcadas
 --
