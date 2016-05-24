@@ -98,19 +98,19 @@
                 <div class="alert alert-danger" role="alert">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                   <span class="sr-only">Error:</span> No se pudo eliminar la Sección 
-                    <strong><?php 
+                    <?php 
                         echo $seccion->Seccion_Descri; 
                         /*if (isset($e)){
                             echo "<br>".$e->getMessage();
                         }*/
-                    ?></strong> 
+                    ?> 
                 </div>
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>
             <?php } else { ?>
                 <div class="alert alert-success" role="alert">
                   <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
-                  <span class="sr-only">Confirmación:</span> La Sección <stong><?php echo $seccion->Seccion_Descri; ?></stong> se Eliminó correctamente.
+                  <span class="sr-only">Confirmación:</span> La Sección <?php echo $seccion->Seccion_Descri; ?> se Eliminó correctamente.
                 </div>     
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>           
