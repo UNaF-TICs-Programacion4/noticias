@@ -33,8 +33,8 @@ if(isset($_POST['registrar']))
             if($registro->registrarusuario($usuario,$email,$pass))
 
             {
-                header('location:registrarusuario.php');
-                echo 'Error';
+                header('location:login.php');
+
             }
          }
      }

@@ -1,34 +1,3 @@
-<?php
-require_once '../conectar.php';
-require_once '../classlogin.php';
-
-if(isset($_POST['eliminar']))
-{
-   $usuario = trim($_POST['inputUsuario']);
-   $email = trim($_POST['inputEmail']);
-   $pass = trim($_POST['inputPassword']);
-      try
-      {
-         $noticia = new Db_Noticia();
-         $conexion=$noticia->conn;
-         $registro= new login();
-            if($registro->eliminararusuario($usuario,$email))
-
-            {
-                header('location:eliminararusuario.php');
-                echo 'Error';
-            }
-         }
-     }
-     catch(PDOException $e)
-     {
-        echo $e->getMessage();
-     }
-  }
-  }
-
-  ?>
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -53,17 +22,15 @@ if(isset($_POST['eliminar']))
   <body>
 
     <div class="container">
-
       <form class="form-signin" method="POST" action="verificar_eliminar.php">
-        <h2 class="form-signin-heading">Eliminar Usuario</h2>        
-
+        <h2 class="form-signin-heading">Modificar Usuario</h2>        
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Correo Electrónico" required autofocus >
         <label for="inputUsuario" class="sr-only">Usuario</label>
         <input type="input" name="inputUsuario" id="inputUsuario" class="form-control" placeholder="Usuario" required>
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="inputPassword">
-        <button class="btn btn-lg btn-primary" type="submit" name="eliminar">Eliminar</button>
+        <button class="btn btn-lg btn-primary" type="submit" name="modificar">Eliminar</button>
       </form>
     </div> <!-- /container -->
 

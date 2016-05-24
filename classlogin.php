@@ -52,8 +52,8 @@
             $noticia = new Db_Noticia();
             $conexion=$noticia->conn;
    
-           $stmt = $conexion->prepare("INSERT INTO admin(admin_usuario,admin_email,admin_password) 
-                                                       VALUES(:usuario, :email, :pass)");
+
+           $stmt = $conexion->prepare("delete from admin where admin_usuario=:usuario or admin_email=:email and admin_password=:pass");
               
            $stmt->bindparam(":usuario", $usuario);
            $stmt->bindparam(":email", $email);
@@ -68,5 +68,43 @@
            echo $e->getMessage();
        }    
     }
+
+
+    public function seleccionar_usuario($usuario,$email,$pass){
+       try
+       {
+         $noticia = new Db_Noticia();
+         $conexion=$noticia->conn;
+         $stmt = $conexion->prepare("SELECT * FROM admin WHERE admin_usuario=:usuario OR admin_email=:email and admin_password=:pass");
+         $stmt->execute(array(':usuario'=>$usuario, ':email'=>$email, ':pass'=>$pass));
+         $row=$stmt->fetch(PDO::FETCH_ASSOC);
+   
+           return $row; 
+           return 'exito';
+       }
+       catch(PDOException $e)
+       {
+           echo $e->getMessage();
+       }    
+    }
+
+    public function modificar_usuario( $usuario, $pass){
+            $noticia= new Db_Noticia();
+            $conexion= $noticia->conn;
+            $sql="update admin set admin_password= :pass where admin_usuario= :usuario";
+            $sentencia= $conexion->prepare($sql);
+            $sentencia->bindparam(':pass', $pass);
+            $sentencia->bindparam(':usuario', $usuario);
+            if (!$sentencia){
+                return "error al modificar el registro";
+            }else{
+                $sentencia->execute();
+                return "Registro modificado correctamente";
+            }
+ 
+
+        }
+
+
 
     } 

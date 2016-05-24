@@ -1,33 +1,62 @@
 <?php
 require_once '../conectar.php';
 require_once '../classlogin.php';
-
-if(isset($_POST['eliminar']))
-{
+   $msj="Verificar los datos a eliminar";
    $usuario = trim($_POST['inputUsuario']);
    $email = trim($_POST['inputEmail']);
    $pass = trim($_POST['inputPassword']);
+   
+   $mostrar= new login();
+   $fila=$mostrar->seleccionar_usuario($usuario, $email, $pass);
+   $usuario=$fila['admin_usuario'];
+   $pass=$fila['admin_password'];
+   $email=$fila['admin_email'];
+   if(isset($_POST['eliminar'])){
+    //establezco para que las cajas de texto sean solo lectura
+   $readonly="readonly='readonly'";
+   $boton="veliminar";
+   }
+   if (isset($_POST['modificar'])) {
+    //establezco para que las cajas de texto se puedan modificar
+    $readonly="";
+    $boton="vmodificar";
+   }
+   
+   if(isset($_POST['veliminar'])){
       try
       {
+          $readonly="";
          $noticia = new Db_Noticia();
          $conexion=$noticia->conn;
          $registro= new login();
-            if($registro->eliminararusuario($usuario,$email))
-
+            if($registro->eliminarusuario($usuario,$email,$pass))
             {
-                header('location:eliminararusuario.php');
-                echo 'Error';
+                header('location:login.php');
             }
          }
-     }
      catch(PDOException $e)
      {
         echo $e->getMessage();
      }
   }
-  }
 
+  if(isset($_POST['vmodificar'])){
+      try
+      {
+          $pass=$_POST['inputPassword'];
+         $registro= new login();
+            if($registro->modificar_usuario($usuario,$pass))
+            {
+                header('location:login.php');
+            }
+         }
+     catch(PDOException $e)
+     {
+        echo $e->getMessage();
+     }
+  }
   ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -53,17 +82,15 @@ if(isset($_POST['eliminar']))
   <body>
 
     <div class="container">
-
       <form class="form-signin" method="POST" action="verificar_eliminar.php">
-        <h2 class="form-signin-heading">Eliminar Usuario</h2>        
-
+        <h2 class="form-signin-heading"><?php echo $msj ?></h2>        
         <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Correo Electrónico" required autofocus >
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" value="<?php echo $email ?>" readonly="readonly" required autofocus >
         <label for="inputUsuario" class="sr-only">Usuario</label>
-        <input type="input" name="inputUsuario" id="inputUsuario" class="form-control" placeholder="Usuario" required>
+        <input type="input" name="inputUsuario" id="inputUsuario" class="form-control" value="<?php echo $usuario ?>" readonly="readonly" required>
         <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="inputPassword">
-        <button class="btn btn-lg btn-primary" type="submit" name="eliminar">Eliminar</button>
+        <input type="input" id="inputPassword" class="form-control" value="<?php echo $pass ?>" <?php echo $readonly ?> required name="inputPassword">
+        <button class="btn btn-lg btn-primary" type="submit" name=<?php echo $boton ?>>Verificar</button>
       </form>
     </div> <!-- /container -->
 
