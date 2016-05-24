@@ -1,29 +1,11 @@
-<?php
-    include_once "../autoloader.php";
-    if ($_POST){
-        $id=$_POST['id'];
-        $seccion = new Seccion($id);
-        $seccion->Seccion_Descri = $_POST['descri'];
-        try {
-            $resultado = $seccion->eliminar();
-        } catch (Exception $e) {
-            $resultado=false;
-        }
-        $resultado = $seccion->actualizar();
-    } elseif ($_GET){
-        //Visualizo el registro a actualizar.
-        $id=$_GET['id'];
-        $seccion = new Seccion($id);
-    } else {
-        die("Error");
-    }
-    
-?>
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+	<?php
+	require_once dirname(__FILE__)."/../classes/seccion.php";
+	?>
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,8 +13,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-
-    <title><?php echo $seccion->seccion_descri; ?></title>
+	<title>Home - NoticiasNEA</title>
 
 	<!-- Bootstrap Core CSS -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -51,89 +32,73 @@
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="./">NoticiasNEA</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="./">NoticiasNEA</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
 
-    <!-- Page Content -->
-    <div class="container">
+	<!-- Page Content -->
+	<div class="container">
 
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Modificar Sección</h1>
-            </div>
-        </div>
-        <!-- /.row -->
-        
-        <div class="container">
-            <div class="row col-md-6">
-            <?php if(!isset($resultado)) { ?>
-                <form method="POST" action="editar_seccion.php">
-                  <div class="form-group">
-                    <input type="text" value="<?php echo $id; ?>" hidden="true" name="id"></input>
-                    <label>Sección</label>
-                    <input type="text" class="form-control" name="descri" placeholder="Nombre de la Sección" value="<?php echo $seccion->Seccion_Descri; ?>">
-                  </div>  
+		<!-- Page Heading -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Editar Sección</h1>
+			</div>
+		</div>
+		<!-- /.row -->
 
-                  </br>  
-                  <button type="submit" name ="btnGuardar" class="btn btn-primary">Modificar</button>
-                  <a href="./" class = "btn btn-default">Volver</a>
-                </form>
-            <?php } elseif (!$resultado) { ?>
-                <div class="alert alert-danger" role="alert">
-                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span> No se pudo Modificar la Sección <?php echo $seccion->Seccion_Descri; ?>
-                </div>
-                </br>
-                <a href="./" class = "btn btn-default">Volver</a>
-            <?php } else { ?>
-                <div class="alert alert-success" role="alert">
-                  <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
-                  <span class="sr-only">Confirmación:</span> La Sección se Modificó correctamente a <?php echo $seccion->Seccion_Descri; ?>
-                </div>     
-                </br>
-                <a href="./" class = "btn btn-default">Volver</a>           
-            <?php } ?>
-            </div>
-        </div>         
+		<?php $seccion = new seccion($_GET["id"]); ?>
 
-        <hr>
+		<div class="container">
+			<div class="row col-md-6">
+				<form method="POST" action="./" >
+					<div class="form-group">
+						<label>Título</label>
+						<input type="hidden" name="id" value=<?php echo $seccion->id; ?> >
+						<input type="text" class="form-control" name="descri" value="<?php echo $seccion->seccion_descri; ?>">
+					</div>
+					</br>
+					<button type="submit" name ="btnGuardar" value="ModifSeccion" class="btn btn-primary">Modificar</button>
+					<a href="./" class = "btn btn-default">Cancelar</a>
+				</form>
+			</div>
+		</div>
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Noticias NEA 2016</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
+		<hr>
 
-    </div>
-    <!-- /.container -->
+		<!-- Footer -->
+		<footer>
+			<div class="row">
+				<div class="col-lg-12">
+					<p>Copyright &copy; Noticias NEA 2016</p>
+				</div>
+			</div>
+			<!-- /.row -->
+		</footer>
 
-    <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+	</div>
+	<!-- /.container -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
+	<!-- jQuery -->
+	<script src="../js/jquery.js"></script>
 
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../js/bootstrap.min.js"></script>
 
 </body>
 

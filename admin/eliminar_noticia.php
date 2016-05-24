@@ -1,28 +1,3 @@
-<?php
-    include_once "../autoloader.php";
-    if ($_POST){
-        $id=$_POST['id'];
-        $noticia = new Noticia($id);
-        try {
-            $resultado = $noticia->eliminar();            
-        } catch (Exception $e) {
-            $resultado = false;
-        }
-
-        if ($resultado && !empty($noticia->Noticia_Imagen)){            
-            unlink("../img/$noticia->Noticia_Imagen");
-        }
-
-    } elseif ($_GET){
-        //Visualizo el registro a eliminar.
-        $id=$_GET['id'];
-        $noticia = new Noticia($id);
-    } else {
-        die("Error");
-    }
-    $seccion = new Seccion();
-    $secciones = $seccion->seleccionarFiltro()->fetchAll();    
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -35,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Eliminar Noticia</title>
+    <title>Home - NoticiasNEA</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -87,64 +62,42 @@
         
         <div class="container">
             <div class="row col-md-6">
-            <?php if(!isset($resultado)) { ?>
-                <form method="POST" action="eliminar_noticia.php" enctype="multipart/form-data">
-                  <input type="text" value="<?php echo $id; ?>" hidden="true" name="id"></input>
+                <form method="POST" action="" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Título</label>
-                    <input type="text" class="form-control" name="titulo" placeholder="Titulo de la Noticia" value="<?php echo $noticia->Noticia_Titulo; ?>" disabled>
+                    <input type="text" class="form-control" name="descri" placeholder="Titulo de la Noticia" >
                   </div>  
                   <div class="form-group">
                     <label>Sección</label>
                     <select name="seccion" class="form-control">
                         <option value="" selected="false" disabled="true">-- Seleccione la Sección -- </option>
-                    <?php foreach ($secciones as $seccion) : ?>
-                        <option value="<?php echo $seccion['id']; ?>"
-                             <?php if ($seccion['id']==$noticia->Rela_IdSeccion){
-                                echo "selected='true'";
-                                } 
-                              ?> disabled><?php echo $seccion['seccion_descri']; ?></option>
-                    <?php endforeach; ?>
+                            <option value="">Deportes</option>
+                            <option value="">Locales</option>
+                            <option value="">Internacionales</option>
+                            <option value="">Espectáculos</option>
                     </select> 
                   </div>  
                   <div class="form-group">
                     <label>Autor</label>
-                    <input type="text" class="form-control" name="autor" placeholder="Autor" value="<?php echo $noticia->Noticia_Autor; ?>" disabled>
+                    <input type="text" class="form-control" name="autor" placeholder="Autor">
                   </div>  
                   <div class="form-group">
                     <label>Texto</label>
-                    <textarea type="text" class="form-control" name="texto" placeholder="Contenido de la Noticia" value="" rows="10" disabled><?php echo $noticia->Noticia_Texto; ?></textarea>
+                    <textarea type="text" class="form-control" name="texto" placeholder="Contenido de la Noticia"></textarea>
                   </div>  
                   <div class="form-group">
-                    <label>Imágen para Mostrar</label>                                        
-                    <?php if(!empty($noticia->Noticia_Imagen)){
-                        echo '<img src="../img/'.$noticia->Noticia_Imagen.'" width="500" height="300">';
-                        } ?>
+                    <label>Imágen para Mostrar</label>
+                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
                   </div>  
                    <div class="checkbox">
                         <label>
-                          <input type="checkbox" name="publicado" <?php echo ($noticia->Noticia_Publicado!=0)?'checked':''; ?> disabled>Publicado
+                          <input type="checkbox">Publicar
                         </label>
                    </div>      
                   </br>  
                   <button type="submit" name ="btnGuardar" class="btn btn-danger">Eliminar</button>
                   <a href="./" class = "btn btn-default">Cancelar</a>
-                        </form>
-            <?php } elseif (!$resultado) { ?>
-                <div class="alert alert-danger" role="alert">
-                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span> No se pudo Eliminar la Noticia <em><?php echo $noticia->Noticia_Titulo; ?></em>
-                </div>
-                </br>
-                <a href="./" class = "btn btn-default">Volver</a>
-            <?php } else { ?>
-                <div class="alert alert-success" role="alert">
-                  <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
-                  <span class="sr-only">Confirmación:</span> La Noticia <em><?php echo $noticia->Noticia_Titulo; ?></em> se Eliminó correctamente.
-                </div>     
-                </br>
-                <a href="./" class = "btn btn-default">Volver</a>           
-            <?php } ?>
+                </form>
             </div>
         </div>         
 

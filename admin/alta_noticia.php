@@ -1,31 +1,3 @@
-<?php
-    include_once "../autoloader.php";
-
-    if ($_POST){        
-        $noticia = new Noticia();  
-        $img = $_FILES['imagen']['name'];
-        $img_temp = $_FILES['imagen']['tmp_name'];
-
-        $noticia->Noticia_Titulo = $_POST['titulo'];
-        $noticia->Rela_IdSeccion = $_POST['seccion'];        
-        $noticia->Noticia_Autor = $_POST['autor'];
-        $noticia->Noticia_Texto = $_POST['texto'];
-        if (!empty($img)){
-            $noticia->Noticia_Imagen = $img;
-        }
-        $noticia->Noticia_Publicado = (isset($_POST['publicado']) && $_POST['publicado'] == "1")?"1":"0";
-        try {
-            $resultado = $noticia->insertar();  
-        } catch (Exception $e) {
-            $resultado = false;
-        }
-        if ($resultado && !empty($img)){
-            move_uploaded_file($img_temp, "../img/$img");
-        }
-    }
-    $seccion = new Seccion();
-    $secciones = $seccion->seleccionarFiltro()->fetchAll();
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -38,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Alta Nueva Noticia</title>
+    <title>Home - NoticiasNEA</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -90,19 +62,19 @@
         
         <div class="container">
             <div class="row col-md-6">
-            <?php if(!isset($resultado)) { ?>
-                <form method="POST" action="alta_noticia.php" enctype="multipart/form-data">
+                <form method="POST" action="" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Título</label>
-                    <input type="text" class="form-control" name="titulo" placeholder="Titulo de la Noticia" >
+                    <input type="text" class="form-control" name="descri" placeholder="Titulo de la Noticia" >
                   </div>  
                   <div class="form-group">
                     <label>Sección</label>
                     <select name="seccion" class="form-control">
                         <option value="" selected="false" disabled="true">-- Seleccione la Sección -- </option>
-                    <?php foreach ($secciones as $seccion) : ?>
-                        <option value="<?php echo $seccion['id']; ?>"><?php echo $seccion['seccion_descri']; ?></option>
-                    <?php endforeach; ?>
+                            <option value="">Deportes</option>
+                            <option value="">Locales</option>
+                            <option value="">Internacionales</option>
+                            <option value="">Espectáculos</option>
                     </select> 
                   </div>  
                   <div class="form-group">
@@ -111,7 +83,7 @@
                   </div>  
                   <div class="form-group">
                     <label>Texto</label>
-                    <textarea type="text" class="form-control" name="texto" placeholder="Contenido de la Noticia" rows="10"></textarea>
+                    <textarea type="text" class="form-control" name="texto" placeholder="Contenido de la Noticia"></textarea>
                   </div>  
                   <div class="form-group">
                     <label>Imágen para Mostrar</label>
@@ -120,28 +92,13 @@
                   </div>  
                    <div class="checkbox">
                         <label>
-                          <input type="checkbox" name="publicado" value="1">Publicado
+                          <input type="checkbox">Publicar
                         </label>
                    </div>      
                   </br>  
-                  <button type="submit" name ="btnGuardar" class="btn btn-success">Guardar</button>
+                  <button type="submit" name ="btnGuardar" class="btn btn-primary">Guardar</button>
                   <a href="./" class = "btn btn-default">Cancelar</a>
-                        </form>
-            <?php } elseif (!$resultado) { ?>
-                <div class="alert alert-danger" role="alert">
-                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span> No se pudo dar de Alta a la Noticia <em><?php echo $noticia->Noticia_Titulo; ?></em>
-                </div>
-                </br>
-                <a href="./" class = "btn btn-default">Volver</a>
-            <?php } else { ?>
-                <div class="alert alert-success" role="alert">
-                  <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
-                  <span class="sr-only">Confirmación:</span> La Noticia <em><?php echo $noticia->Noticia_Titulo; ?></em> se dió de Alta correctamente.
-                </div>     
-                </br>
-                <a href="./" class = "btn btn-default">Volver</a>           
-            <?php } ?>
+                </form>
             </div>
         </div>         
 
