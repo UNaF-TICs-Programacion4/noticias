@@ -47,6 +47,7 @@
         <a href="../" class="btn btn-lg btn-success">Página Principal</a>
         <a href="registrarusuario.php" class="btn btn-lg btn-success">Registrar</a>
         <a href="eliminarusuario.php" class="btn btn-lg btn-success">Eliminar</a>
+        <a href="modificar_usuario.php" class="btn btn-lg btn-success">Modificar</a>
       </form>
     </div> <!-- /container -->
 

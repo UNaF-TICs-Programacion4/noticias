@@ -19,14 +19,11 @@ if(isset($_POST['eliminar']))
                 echo 'Error';
             }
          }
-     }
      catch(PDOException $e)
      {
         echo $e->getMessage();
      }
   }
-  }
-
   ?>
 
 <!DOCTYPE html>
