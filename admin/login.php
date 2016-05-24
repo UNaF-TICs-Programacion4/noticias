@@ -1,4 +1,18 @@
-
+ <?php 
+        if (isset($_POST['btnLogin'])) {
+        require_once ('../conectar.php');
+        require_once('../classlogin.php');
+        $consultas= new login();
+        $email=$_POST["inputEmail"];
+        $pass= $_POST["inputPassword"];
+        if (empty( $email) || empty($pass)) {
+            echo 'completar';}
+        else{
+        $verificar= $consultas->logearse($email, $pass);
+        echo $verificar;
+        }
+        }
+    ?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -17,19 +31,22 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/signin.css" rel="stylesheet">
+
   </head>
 
   <body>
 
     <div class="container">
-      <form class="form-signin" method="POST" action="index.php">
+      <form class="form-signin" method="POST" action="login.php">
         <h2 class="form-signin-heading">Panel de Administración</h2>        
         <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Correo Electrónico" required autofocus name="email">
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Correo Electrónico" required autofocus >
         <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="pass">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="inputPassword">
         <button class="btn btn-lg btn-primary" type="submit" name="btnLogin">Ingresar</button>
         <a href="../" class="btn btn-lg btn-success">Página Principal</a>
+        <a href="registrarusuario.php" class="btn btn-lg btn-success">Registrar</a>
+        <a href="eliminarusuario.php" class="btn btn-lg btn-success">Eliminar</a>
       </form>
     </div> <!-- /container -->
 
