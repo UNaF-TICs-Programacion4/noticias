@@ -102,7 +102,7 @@
                 <td><?php echo $noticia['id']; ?></td>
                 <td><a href="editar_noticia.php?id=<?php echo $noticia['id']; ?>"><?php echo $noticia['noticia_titulo']; ?></a></td>
                 <td><?php echo $noticia['seccion_descri']; ?></td>
-                <td><?php echo $noticia['noticia_fecha_alta']; ?></td>
+                <td><?php echo FechayHora::FechaHoraFormatoCorto($noticia['noticia_fecha_alta']); ?></td>
                 <td><?php echo $noticia['noticia_autor']; ?></td>
                 <td><?php echo substr($noticia['noticia_texto'],0,150)."..."; ?></a></td>
                 <td><?php echo $noticia['noticia_imagen']; ?></td>

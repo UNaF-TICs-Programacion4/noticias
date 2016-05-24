@@ -84,7 +84,7 @@
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> <?php echo $noticia->noticia_fecha_alta(); ?> </p>
+                <p><span class="glyphicon glyphicon-time"></span> Publicado el <?php echo FechayHora::FechaFormatoCorto($noticia->noticia_fecha_alta()) . " a las " . FechayHora::HoraFormatoCorto($noticia->noticia_fecha_alta()); ?></p>
 
                 <hr>
 

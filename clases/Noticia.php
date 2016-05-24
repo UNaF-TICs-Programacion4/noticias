@@ -37,6 +37,8 @@ class Noticia extends Conexion
 		return $this->Noticia_Fecha_Alta;
 	}
 
+	
+
 	public function id(){
 		return $this->Id;
 	}
