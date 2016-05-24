@@ -5,11 +5,11 @@
         $seccion = new Seccion($id);
         $seccion->Seccion_Descri = $_POST['descri'];
         try {
-            $resultado = $seccion->eliminar();
+            $resultado = $seccion->actualizar();
         } catch (Exception $e) {
             $resultado=false;
         }
-        $resultado = $seccion->actualizar();
+        
     } elseif ($_GET){
         //Visualizo el registro a actualizar.
         $id=$_GET['id'];

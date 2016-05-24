@@ -103,7 +103,7 @@
                         /*if (isset($e)){
                             echo "<br>".$e->getMessage();
                         }*/
-                    ?></strong> 
+                    ?></strong>
                 </div>
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>
