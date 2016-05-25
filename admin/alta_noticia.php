@@ -130,7 +130,13 @@
             <?php } elseif (!$resultado) { ?>
                 <div class="alert alert-danger" role="alert">
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  <span class="sr-only">Error:</span> No se pudo dar de Alta a la Noticia <strong><?php echo $noticia->Noticia_Titulo; ?></strong>
+                  <span class="sr-only">Error:</span> No se pudo dar de Alta a la Noticia 
+                    <strong><?php 
+                                echo $noticia->Noticia_Titulo;
+                                if (isset($e)){
+                                    echo "<br>".$e->getMessage();
+                                } ?></strong>
+
                 </div>
                 </br>
                 <a href="./" class = "btn btn-default">Volver</a>

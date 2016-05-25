@@ -102,7 +102,7 @@
                 <h3><?php echo $noticia['noticia_titulo']; ?></h3>
                 <h4><?php echo $noticia['seccion_descri']; ?></h4>
                 <p><i><?php echo FechayHora::FechaHoraFormatoLargo($noticia['noticia_fecha_alta']);?></i></p>
-                <p><?php echo substr($noticia['noticia_texto'],0,150)."..."; ?></p>
+                <p><?php echo substr($noticia['noticia_texto'],0,250)."..."; ?></p>
                 <a class="btn btn-primary" href="ver_noticia.php?id=<?php echo $noticia['id']; ?>">Ver Noticia<span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>

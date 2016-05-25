@@ -82,6 +82,7 @@ class Noticia extends Conexion
 
 	public function insertar(){	
 		$query = "INSERT INTO ". self::TABLA ." (rela_idseccion, noticia_titulo, noticia_autor, noticia_texto, noticia_imagen, noticia_publicado) VALUES ($this->Rela_IdSeccion, '$this->Noticia_Titulo', '$this->Noticia_Autor', '$this->Noticia_Texto', '$this->Noticia_Imagen', $this->Noticia_Publicado)";		
+		echo $query;
 		$resultado = $this->link->query($query);
 		return $resultado;
 	}

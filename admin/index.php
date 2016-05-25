@@ -108,7 +108,7 @@
                 <td><?php echo $noticia['noticia_imagen']; ?></td>
                 <td><input type="checkbox" <?php echo ($noticia['noticia_publicado']!=0)?'checked':''; ?> disabled></input></td>
                 <td><a href="eliminar_noticia.php?id=<?php echo $noticia['id']; ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
-            <?php endforeach; ?>                            
+            <?php endforeach; ?>               
             </tbody>
           </table>          
         </div>
